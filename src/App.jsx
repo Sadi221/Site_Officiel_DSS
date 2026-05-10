@@ -4,6 +4,7 @@ import Mission     from './components/Mission'
 import Impact      from './components/Impact'
 import Projects    from './components/Projects'
 import JappooFaju  from './components/JappooFaju'
+import Donation    from './components/Donation'
 import Partners    from './components/Partners'
 import Team        from './components/Team'
 import Contact     from './components/Contact'
@@ -18,6 +19,7 @@ export default function App() {
       <Impact />
       <Projects />
       <JappooFaju />
+      <Donation />
       <Partners />
       <Team />
       <Contact />

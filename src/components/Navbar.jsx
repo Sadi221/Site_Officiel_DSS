@@ -5,6 +5,7 @@ const links = [
   { label: 'Impact',         href: '#impact' },
   { label: 'Projets',        href: '#projets' },
   { label: 'Jappoo Faju',   href: '#jappoo' },
+  { label: 'Don',            href: '#don' },
   { label: 'Contact',        href: '#contact' },
 ]
 

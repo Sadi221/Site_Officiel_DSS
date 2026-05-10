@@ -1,7 +1,9 @@
+import DonationWidget from './DonationWidget'
+
 export default function Hero() {
   return (
     <section className="min-h-screen relative flex items-center pt-24 pb-20 overflow-hidden">
-      {/* Background — légèrement flouté et assombri */}
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{
@@ -12,7 +14,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/55 to-black/30" />
       <div className="absolute bottom-0 left-0 w-2/5 h-1 bg-gradient-to-r from-dss-green to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
         <div className="max-w-2xl">
 
           {/* Logo + name */}
@@ -40,28 +42,28 @@ export default function Hero() {
             & Santé
           </h1>
 
-          <p className="text-lg text-white leading-[1.8] mb-10 max-w-lg">
+          <p className="text-lg text-white leading-[1.8] mb-8 max-w-lg">
             Améliorer le bien-être des populations vulnérables à travers la santé,
             le développement durable et la lutte contre le changement climatique.
           </p>
 
-          <div className="flex flex-wrap gap-3.5">
-            <a href="#mission"
-              className="bg-white text-dss-green px-8 py-4 rounded-xl text-sm font-extrabold shadow-xl hover:shadow-2xl transition-shadow">
-              Découvrir notre mission
-            </a>
-            <a href="https://buy.stripe.com/test_6oU7sL7LN3yT3Tt4ko9MY00" target="_blank" rel="noreferrer"
-              className="bg-dss-coral text-white px-8 py-4 rounded-xl text-sm font-extrabold shadow-xl shadow-dss-coral/40 hover:bg-orange-700 transition-colors">
-              Faire un don à DSS →
-            </a>
+          <a href="#mission"
+            className="inline-block bg-white text-dss-green px-8 py-3.5 rounded-xl text-sm font-extrabold shadow-xl hover:shadow-2xl transition-shadow mb-10">
+            Découvrir notre mission
+          </a>
+
+          {/* Donation widget */}
+          <div className="border-t border-white/15 pt-8">
+            <p className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">Faire un don à DSS</p>
+            <DonationWidget dark />
           </div>
 
           {/* Stats */}
-          <div className="flex flex-wrap gap-10 mt-16 pt-10 border-t border-white/10">
+          <div className="flex flex-wrap gap-10 mt-10 pt-8 border-t border-white/10">
             {[
-              { value: '2019',  label: 'Fondée à Paris' },
-              { value: '2',     label: 'Hôpitaux partenaires' },
-              { value: '3',     label: 'Piliers d\'action' },
+              { value: '2019', label: 'Fondée à Paris' },
+              { value: '2',    label: 'Hôpitaux partenaires' },
+              { value: '3',    label: 'Piliers d\'action' },
             ].map(s => (
               <div key={s.label}>
                 <div className="text-3xl font-black text-[#A8E6C3] font-serif">{s.value}</div>

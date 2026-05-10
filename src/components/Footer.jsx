@@ -3,6 +3,7 @@ const navLinks = [
   { label: 'Notre impact',   href: '#impact' },
   { label: 'Nos projets',    href: '#projets' },
   { label: 'Jappoo Faju',   href: '#jappoo' },
+  { label: 'Faire un don',   href: '#don' },
   { label: 'Partenaires',    href: '#partenaires' },
   { label: 'L\'association', href: '#association' },
   { label: 'Contact',        href: '#contact' },

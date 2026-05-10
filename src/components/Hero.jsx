@@ -6,10 +6,10 @@ export default function Hero() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80)',
-          filter: 'blur(3px) brightness(0.45)',
+          filter: 'brightness(0.55)',
         }}
       />
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/55 to-black/30" />
       <div className="absolute bottom-0 left-0 w-2/5 h-1 bg-gradient-to-r from-dss-green to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">

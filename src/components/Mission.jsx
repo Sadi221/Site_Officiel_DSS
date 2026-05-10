@@ -64,25 +64,6 @@ export default function Mission() {
           ))}
         </div>
 
-        {/* Quote banner */}
-        <div className="mt-16 rounded-3xl overflow-hidden relative">
-          <img
-            src="https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=1200&q=80"
-            alt="Communauté"
-            className="w-full h-72 object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-dss-dark/92 to-dss-green/85 flex items-center justify-center p-10">
-            <div className="text-center max-w-2xl">
-              <p className="font-serif text-white leading-[1.6] italic" style={{ fontSize: 'clamp(18px,2.5vw,28px)' }}>
-                "Améliorer le bien-être général des populations et des communautés vulnérables,
-                avec un accent particulier sur la santé, l'agriculture et l'environnement."
-              </p>
-              <p className="text-white/60 mt-4 text-sm tracking-wide">
-                — Objet social de DSS, déclaration du 11 mars 2019
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )

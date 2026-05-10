@@ -1,51 +1,61 @@
 import { useState } from 'react'
 
-export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+// Créer un compte sur formspree.io et remplacer par votre Form ID
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
 
-  const handleSubmit = (e) => {
+const contactItems = [
+  { icon: '📧', label: 'Email',       value: 'contact@dss-france.org' },
+  { icon: '📍', label: 'Adresse',     value: '9 rue du Cirque, 75008 Paris' },
+  { icon: '🌐', label: 'Projet santé', value: 'www.jappoo-faju.org' },
+]
+
+export default function Contact() {
+  const [form,   setForm]   = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    window.location.href = `mailto:contact@dss-france.org?subject=Contact DSS - ${form.name}&body=${encodeURIComponent(form.message)}%0A%0AEnvoyé par: ${form.name} (${form.email})`
-    setSent(true)
+    setStatus('sending')
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStatus(res.ok ? 'sent' : 'error')
+    } catch {
+      setStatus('error')
+    }
   }
 
+  const inputClass = 'w-full px-4 py-3 rounded-xl border-2 border-slate-200 text-sm font-sans outline-none focus:border-dss-green transition-colors'
+
   return (
-    <section id="contact" style={{ background: '#F5F0E8' }}>
-      <div className="container">
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'start',
-        }}>
+    <section id="contact" className="py-14 md:py-20 bg-dss-sand">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+
           {/* Left */}
           <div>
-            <span style={{
-              display: 'inline-block', background: '#E8F5EE', color: '#1B6B45',
-              padding: '6px 16px', borderRadius: '40px', fontSize: '13px',
-              fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '24px',
-            }}>Contact</span>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', color: '#1A1A2E', marginBottom: '24px' }}>
+            <span className="inline-block bg-white text-dss-green px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6">
+              Contact
+            </span>
+            <h2 className="text-dss-navy mb-6" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
               Nous contacter
             </h2>
-            <p style={{ fontSize: '16px', color: '#64748B', lineHeight: 1.8, marginBottom: '40px' }}>
+            <p className="text-base text-dss-gray leading-[1.8] mb-10">
               Vous souhaitez en savoir plus sur nos actions, devenir partenaire
               ou rejoindre l'association ? Écrivez-nous.
             </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {[
-                { icon: '📧', label: 'Email', value: 'contact@dss-france.org' },
-                { icon: '📍', label: 'Adresse', value: '9 rue du Cirque, 75008 Paris' },
-                { icon: '🌐', label: 'Projet santé', value: 'www.jappoo-faju.org' },
-              ].map(c => (
-                <div key={c.label} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '12px',
-                    background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '22px', flexShrink: 0,
-                  }}>{c.icon}</div>
+            <div className="flex flex-col gap-5">
+              {contactItems.map(c => (
+                <div key={c.label} className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-xl flex-shrink-0 shadow-sm">
+                    {c.icon}
+                  </div>
                   <div>
-                    <div style={{ fontSize: '12px', color: '#94A3B8', marginBottom: '2px' }}>{c.label}</div>
-                    <div style={{ fontSize: '15px', fontWeight: '600', color: '#1A1A2E' }}>{c.value}</div>
+                    <div className="text-xs text-slate-400 mb-0.5">{c.label}</div>
+                    <div className="text-sm font-semibold text-dss-navy">{c.value}</div>
                   </div>
                 </div>
               ))}
@@ -53,72 +63,47 @@ export default function Contact() {
           </div>
 
           {/* Right — Form */}
-          <div style={{
-            background: '#fff', borderRadius: '24px', padding: '40px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-          }}>
-            {sent ? (
-              <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                <span style={{ fontSize: '64px', display: 'block', marginBottom: '16px' }}>✅</span>
-                <h3 style={{ fontSize: '22px', color: '#1B6B45', marginBottom: '8px' }}>Message envoyé !</h3>
-                <p style={{ color: '#64748B' }}>Nous vous répondrons dans les plus brefs délais.</p>
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl shadow-black/5">
+            {status === 'sent' ? (
+              <div className="text-center py-10">
+                <span className="text-6xl block mb-4">✅</span>
+                <h3 className="text-xl font-bold text-dss-green mb-2">Message envoyé !</h3>
+                <p className="text-dss-gray text-sm">Nous vous répondrons dans les plus brefs délais.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#475569', display: 'block', marginBottom: '6px' }}>Nom complet</label>
-                  <input
-                    type="text" required placeholder="Votre nom"
-                    value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                    style={{
-                      width: '100%', padding: '12px 16px', borderRadius: '10px',
-                      border: '1.5px solid #E2E8F0', fontSize: '15px', outline: 'none',
-                      fontFamily: 'Inter, sans-serif',
-                    }}
-                  />
+                  <label className="block text-xs font-bold text-slate-500 mb-1.5">Nom complet</label>
+                  <input type="text" required placeholder="Votre nom"
+                    value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
+                    className={inputClass} />
                 </div>
                 <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#475569', display: 'block', marginBottom: '6px' }}>Email</label>
-                  <input
-                    type="email" required placeholder="votre@email.com"
-                    value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                    style={{
-                      width: '100%', padding: '12px 16px', borderRadius: '10px',
-                      border: '1.5px solid #E2E8F0', fontSize: '15px', outline: 'none',
-                      fontFamily: 'Inter, sans-serif',
-                    }}
-                  />
+                  <label className="block text-xs font-bold text-slate-500 mb-1.5">Email</label>
+                  <input type="email" required placeholder="votre@email.com"
+                    value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+                    className={inputClass} />
                 </div>
                 <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#475569', display: 'block', marginBottom: '6px' }}>Message</label>
-                  <textarea
-                    required rows={5} placeholder="Votre message..."
-                    value={form.message} onChange={e => setForm({...form, message: e.target.value})}
-                    style={{
-                      width: '100%', padding: '12px 16px', borderRadius: '10px',
-                      border: '1.5px solid #E2E8F0', fontSize: '15px', outline: 'none',
-                      fontFamily: 'Inter, sans-serif', resize: 'vertical',
-                    }}
-                  />
+                  <label className="block text-xs font-bold text-slate-500 mb-1.5">Message</label>
+                  <textarea required rows={5} placeholder="Votre message..."
+                    value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+                    className={`${inputClass} resize-vertical`} />
                 </div>
-                <button type="submit" style={{
-                  background: '#1B6B45', color: '#fff',
-                  padding: '14px', borderRadius: '12px',
-                  fontSize: '15px', fontWeight: '800', border: 'none', cursor: 'pointer',
-                }}>
-                  Envoyer le message →
+                {status === 'error' && (
+                  <p className="text-sm text-red-600 text-center">
+                    Une erreur est survenue. Écrivez-nous directement à contact@dss-france.org.
+                  </p>
+                )}
+                <button type="submit" disabled={status === 'sending'}
+                  className="bg-dss-green text-white py-4 rounded-xl text-sm font-extrabold hover:bg-dss-dark transition-colors disabled:opacity-60 cursor-pointer">
+                  {status === 'sending' ? 'Envoi en cours...' : 'Envoyer le message →'}
                 </button>
               </form>
             )}
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          #contact .container > div { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   )
 }

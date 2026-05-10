@@ -3,8 +3,8 @@ const projects = [
     tag: 'Santé numérique',
     title: 'Jappoo Faju',
     desc: 'Plateforme de solidarité médicale connectant donateurs et patients sénégalais en besoin urgent. Dons via Wave, Orange Money et carte bancaire.',
-    status: 'Actif',
-    statusColor: '#16A34A',
+    statusLabel: 'Actif',
+    statusClass: 'bg-green-100 text-green-700',
     icon: '💊',
     link: 'https://www.jappoo-faju.org',
   },
@@ -12,8 +12,8 @@ const projects = [
     tag: 'Agriculture',
     title: 'Jardins Solidaires',
     desc: 'Soutien aux agricultures familiales au Sénégal avec des techniques durables et résistantes aux aléas climatiques.',
-    status: 'En développement',
-    statusColor: '#F59E0B',
+    statusLabel: 'En développement',
+    statusClass: 'bg-amber-100 text-amber-700',
     icon: '🌾',
     link: null,
   },
@@ -21,8 +21,8 @@ const projects = [
     tag: 'Environnement',
     title: 'Reforestation Communautaire',
     desc: 'Programme de reforestation impliquant les communautés locales dans la protection de leur environnement naturel.',
-    status: 'En développement',
-    statusColor: '#F59E0B',
+    statusLabel: 'En développement',
+    statusClass: 'bg-amber-100 text-amber-700',
     icon: '🌳',
     link: null,
   },
@@ -30,49 +30,31 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projets" style={{ background: '#F8FAFF' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <span style={{
-            display: 'inline-block', background: '#E8F5EE', color: '#1B6B45',
-            padding: '6px 16px', borderRadius: '40px', fontSize: '13px',
-            fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '16px',
-          }}>Nos projets</span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', color: '#1A1A2E', marginBottom: '16px' }}>
+    <section id="projets" className="py-14 md:py-20 bg-slate-50">
+      <div className="max-w-6xl mx-auto px-6">
+
+        <div className="text-center mb-16">
+          <span className="inline-block bg-dss-light text-dss-green px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+            Nos projets
+          </span>
+          <h2 className="text-dss-navy mb-4" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>
             Des initiatives concrètes<br />pour un impact durable
           </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        <div className="grid md:grid-cols-3 gap-6">
           {projects.map(p => (
-            <div key={p.title} style={{
-              background: '#fff', borderRadius: '20px', padding: '32px',
-              boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-              display: 'flex', flexDirection: 'column',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-                <span style={{ fontSize: '40px' }}>{p.icon}</span>
-                <span style={{
-                  background: p.statusColor + '20', color: p.statusColor,
-                  padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '700',
-                }}>{p.status}</span>
+            <div key={p.title} className="bg-white rounded-2xl p-8 shadow-md shadow-black/5 flex flex-col">
+              <div className="flex justify-between items-start mb-5">
+                <span className="text-4xl">{p.icon}</span>
+                <span className={`${p.statusClass} px-3 py-1 rounded-full text-xs font-bold`}>{p.statusLabel}</span>
               </div>
-
-              <span style={{
-                fontSize: '12px', fontWeight: '700', color: '#1B6B45',
-                textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px',
-              }}>{p.tag}</span>
-
-              <h3 style={{ fontSize: '22px', color: '#1A1A2E', marginBottom: '12px' }}>{p.title}</h3>
-              <p style={{ fontSize: '15px', color: '#64748B', lineHeight: 1.8, flex: 1 }}>{p.desc}</p>
-
+              <span className="text-xs font-bold text-dss-green uppercase tracking-widest mb-2">{p.tag}</span>
+              <h3 className="text-xl font-bold text-dss-navy mb-3">{p.title}</h3>
+              <p className="text-sm text-dss-gray leading-[1.8] flex-1">{p.desc}</p>
               {p.link && (
-                <a href={p.link} target="_blank" rel="noreferrer" style={{
-                  display: 'inline-block', marginTop: '24px',
-                  background: '#1B6B45', color: '#fff',
-                  padding: '12px 24px', borderRadius: '10px',
-                  fontSize: '14px', fontWeight: '700', textAlign: 'center',
-                }}>
+                <a href={p.link} target="_blank" rel="noreferrer"
+                  className="mt-6 bg-dss-green text-white px-6 py-3 rounded-xl text-sm font-bold text-center hover:bg-dss-dark transition-colors">
                   Visiter le site →
                 </a>
               )}

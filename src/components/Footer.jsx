@@ -1,18 +1,26 @@
+const navLinks = [
+  { label: 'Notre mission',  href: '#mission' },
+  { label: 'Notre impact',   href: '#impact' },
+  { label: 'Nos projets',    href: '#projets' },
+  { label: 'Jappoo Faju',   href: '#jappoo' },
+  { label: 'Partenaires',    href: '#partenaires' },
+  { label: 'L\'association', href: '#association' },
+  { label: 'Contact',        href: '#contact' },
+]
+
 export default function Footer() {
   return (
-    <footer style={{ background: '#0F4A2E', padding: '48px 0 32px' }}>
-      <div className="container">
-        <div style={{
-          display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '48px',
-          marginBottom: '48px',
-        }}>
+    <footer className="bg-dss-dark pt-12 pb-8">
+      <div className="max-w-6xl mx-auto px-6">
+
+        <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '22px', fontWeight: '900', color: '#fff', marginBottom: '4px' }}>DSS</div>
-            <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
+            <div className="font-serif text-2xl font-black text-white mb-1">DSS</div>
+            <div className="text-[11px] text-white/50 tracking-[2px] uppercase mb-4">
               Développement Solidaire & Santé
             </div>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, maxWidth: '280px' }}>
+            <p className="text-sm text-white/60 leading-[1.8] max-w-xs">
               Association loi 1901 fondée en 2019.<br />
               N° W751251475 — Paris, France.
             </p>
@@ -20,47 +28,40 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>Navigation</div>
-            {['Notre mission', 'Nos projets', 'Jappoo Faju', 'Contact'].map(l => (
-              <a key={l} href={`#${l.toLowerCase().replace(' ', '-')}`} style={{
-                display: 'block', color: 'rgba(255,255,255,0.6)', fontSize: '14px',
-                marginBottom: '10px', transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.target.style.color = '#A8E6C3'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.6)'}
-              >{l}</a>
-            ))}
+            <div className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Navigation</div>
+            <div className="flex flex-col gap-2.5">
+              {navLinks.map(l => (
+                <a key={l.href} href={l.href}
+                  className="text-sm text-white/60 hover:text-[#A8E6C3] transition-colors">
+                  {l.label}
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Project */}
           <div>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>Projet santé</div>
-            <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer" style={{
-              display: 'inline-block', background: '#E05A2B', color: '#fff',
-              padding: '10px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '700',
-              marginBottom: '16px',
-            }}>jappoo-faju.org →</a>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>
+            <div className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Projet santé</div>
+            <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+              className="inline-block bg-dss-coral text-white px-5 py-2.5 rounded-xl text-sm font-bold mb-4 hover:bg-orange-700 transition-colors">
+              jappoo-faju.org →
+            </a>
+            <p className="text-xs text-white/50 leading-[1.7]">
               Solidarité médicale<br />au Sénégal
             </p>
           </div>
         </div>
 
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)' }}>
-            © 2026 Développement Solidaire & Santé. Tous droits réservés.
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-xs text-white/40">
+            © {new Date().getFullYear()} Développement Solidaire & Santé. Tous droits réservés.
           </p>
-          <a href="https://www.jappoo-faju.org/privacy-policy" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)' }}>
+          <a href="https://www.jappoo-faju.org/privacy-policy"
+            className="text-xs text-white/40 hover:text-white/70 transition-colors">
             Politique de confidentialité
           </a>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          footer .container > div:first-child { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   )
 }

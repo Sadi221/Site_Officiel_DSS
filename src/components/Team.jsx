@@ -1,36 +1,34 @@
+const infos = [
+  { label: 'Numéro d\'enregistrement', value: 'W751251475',                          icon: '📋' },
+  { label: 'Date de déclaration',      value: '11 mars 2019',                         icon: '📅' },
+  { label: 'Siège social',             value: '9 rue du Cirque\n75008 Paris',          icon: '📍' },
+  { label: 'Statut juridique',         value: 'Association loi 1901\nà but non lucratif', icon: '⚖️' },
+]
+
 export default function Team() {
   return (
-    <section style={{ background: '#fff' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <span style={{
-            display: 'inline-block', background: '#E8F5EE', color: '#1B6B45',
-            padding: '6px 16px', borderRadius: '40px', fontSize: '13px',
-            fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '16px',
-          }}>L'association</span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', color: '#1A1A2E', marginBottom: '16px' }}>
+    <section id="association" className="py-14 md:py-20 bg-dss-sand">
+      <div className="max-w-6xl mx-auto px-6">
+
+        <div className="text-center mb-16">
+          <span className="inline-block bg-white text-dss-green px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+            L'association
+          </span>
+          <h2 className="text-dss-navy mb-4" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>
             Une organisation reconnue
           </h2>
-          <p style={{ fontSize: '17px', color: '#64748B', maxWidth: '560px', margin: '0 auto', lineHeight: 1.8 }}>
+          <p className="text-lg text-dss-gray max-w-xl mx-auto leading-[1.8]">
             DSS est une association loi 1901 déclarée à la Préfecture de Police de Paris,
             enregistrée sous le numéro W751251475.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
-          {[
-            { label: 'Numéro d\'enregistrement', value: 'W751251475', icon: '📋' },
-            { label: 'Date de déclaration', value: '11 mars 2019', icon: '📅' },
-            { label: 'Siège social', value: '9 rue du Cirque\n75008 Paris', icon: '📍' },
-            { label: 'Statut juridique', value: 'Association loi 1901\nà but non lucratif', icon: '⚖️' },
-          ].map(i => (
-            <div key={i.label} style={{
-              background: '#F8FAFF', borderRadius: '16px', padding: '28px',
-              border: '1px solid #E2E8F0', textAlign: 'center',
-            }}>
-              <span style={{ fontSize: '36px', display: 'block', marginBottom: '12px' }}>{i.icon}</span>
-              <div style={{ fontSize: '12px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>{i.label}</div>
-              <div style={{ fontSize: '16px', fontWeight: '700', color: '#1A1A2E', whiteSpace: 'pre-line' }}>{i.value}</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {infos.map(i => (
+            <div key={i.label} className="bg-white rounded-2xl p-7 border border-slate-100 text-center shadow-sm">
+              <span className="text-4xl block mb-3">{i.icon}</span>
+              <div className="text-xs text-slate-400 uppercase tracking-wide mb-2">{i.label}</div>
+              <div className="text-base font-bold text-dss-navy whitespace-pre-line">{i.value}</div>
             </div>
           ))}
         </div>

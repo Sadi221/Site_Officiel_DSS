@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react'
 
+const links = [
+  { label: 'Notre mission',  href: '#mission' },
+  { label: 'Impact',         href: '#impact' },
+  { label: 'Projets',        href: '#projets' },
+  { label: 'Jappoo Faju',   href: '#jappoo' },
+  { label: 'Contact',        href: '#contact' },
+]
+
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled,  setScrolled]  = useState(false)
+  const [menuOpen,  setMenuOpen]  = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -9,59 +18,71 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const links = [
-    { label: 'Notre mission', href: '#mission' },
-    { label: 'Projets', href: '#projets' },
-    { label: 'Jappoo Faju', href: '#jappoo' },
-    { label: 'Contact', href: '#contact' },
-  ]
-
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? 'rgba(255,255,255,0.97)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(16px)' : 'none',
-      borderBottom: scrolled ? '1px solid #E2E8F0' : 'none',
-      transition: 'all 0.3s ease',
-      padding: scrolled ? '12px 0' : '20px 0',
-    }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/Logo_DSS.png" alt="DSS" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-white/95 backdrop-blur-lg border-b border-slate-200 py-3' : 'bg-transparent py-5'
+    }`}>
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-3">
+          <img src="/Logo_DSS.png" alt="DSS" className="w-9 h-9 object-contain" />
           <div>
-            <div style={{ fontSize: '13px', fontWeight: '800', color: scrolled ? '#1B6B45' : '#fff', letterSpacing: '0.5px' }}>
+            <div className={`text-sm font-extrabold tracking-wide transition-colors ${scrolled ? 'text-dss-green' : 'text-white'}`}>
               DSS
             </div>
-            <div style={{ fontSize: '9px', color: scrolled ? '#94A3B8' : 'rgba(255,255,255,0.5)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+            <div className={`text-[9px] tracking-widest uppercase transition-colors ${scrolled ? 'text-slate-400' : 'text-white/50'}`}>
               Développement Solidaire & Santé
             </div>
           </div>
         </a>
 
         {/* Desktop links */}
-        <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }} className="desktop-nav">
+        <div className="hidden md:flex items-center gap-7">
           {links.map(l => (
-            <a key={l.href} href={l.href} style={{
-              fontSize: '14px', fontWeight: '600',
-              color: scrolled ? '#475569' : 'rgba(255,255,255,0.85)',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={e => e.target.style.color = '#1B6B45'}
-            onMouseLeave={e => e.target.style.color = scrolled ? '#475569' : 'rgba(255,255,255,0.85)'}
-            >{l.label}</a>
+            <a key={l.href} href={l.href}
+              className={`text-sm font-semibold transition-colors hover:text-dss-green ${
+                scrolled ? 'text-slate-500' : 'text-white/85'
+              }`}>
+              {l.label}
+            </a>
           ))}
-          <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer" style={{
-            background: '#E05A2B', color: '#fff',
-            padding: '9px 20px', borderRadius: '8px',
-            fontSize: '13px', fontWeight: '700',
-            boxShadow: '0 2px 8px rgba(224,90,43,0.3)',
-          }}>Faire un don →</a>
+          <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+            className="bg-dss-coral text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-dss-coral/30 hover:bg-orange-700 transition-colors">
+            Faire un don →
+          </a>
         </div>
+
+        {/* Hamburger */}
+        <button
+          className="md:hidden flex flex-col justify-center gap-1.5 p-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+        >
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? 'bg-dss-navy' : 'bg-white'} ${menuOpen ? 'translate-y-2 rotate-45' : ''}`} />
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? 'bg-dss-navy' : 'bg-white'} ${menuOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? 'bg-dss-navy' : 'bg-white'} ${menuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+        </button>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) { .desktop-nav { display: none !important; } }
-      `}</style>
+      {/* Mobile menu */}
+      <div className={`md:hidden bg-white border-t border-slate-100 overflow-hidden transition-all duration-300 ${
+        menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+      }`}>
+        <div className="px-6 py-5 flex flex-col gap-4">
+          {links.map(l => (
+            <a key={l.href} href={l.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-sm font-semibold text-slate-700 hover:text-dss-green transition-colors">
+              {l.label}
+            </a>
+          ))}
+          <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+            className="bg-dss-coral text-white px-5 py-3 rounded-xl text-sm font-bold text-center mt-1">
+            Faire un don →
+          </a>
+        </div>
+      </div>
     </nav>
   )
 }

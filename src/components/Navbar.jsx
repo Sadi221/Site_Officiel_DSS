@@ -47,7 +47,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+          <a href="https://buy.stripe.com/test_6oU7sL7LN3yT3Tt4ko9MY00" target="_blank" rel="noreferrer"
             className="bg-dss-coral text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-dss-coral/30 hover:bg-orange-700 transition-colors">
             Faire un don →
           </a>
@@ -77,7 +77,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+          <a href="https://buy.stripe.com/test_6oU7sL7LN3yT3Tt4ko9MY00" target="_blank" rel="noreferrer"
             className="bg-dss-coral text-white px-5 py-3 rounded-xl text-sm font-bold text-center mt-1">
             Faire un don →
           </a>

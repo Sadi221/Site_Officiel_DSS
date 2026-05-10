@@ -50,9 +50,9 @@ export default function Hero() {
               className="bg-white text-dss-green px-8 py-4 rounded-xl text-sm font-extrabold shadow-xl hover:shadow-2xl transition-shadow">
               Découvrir notre mission
             </a>
-            <a href="https://www.jappoo-faju.org" target="_blank" rel="noreferrer"
+            <a href="https://buy.stripe.com/test_6oU7sL7LN3yT3Tt4ko9MY00" target="_blank" rel="noreferrer"
               className="bg-dss-coral text-white px-8 py-4 rounded-xl text-sm font-extrabold shadow-xl shadow-dss-coral/40 hover:bg-orange-700 transition-colors">
-              Soutenir Jappoo Faju →
+              Faire un don à DSS →
             </a>
           </div>
 

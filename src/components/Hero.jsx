@@ -1,12 +1,15 @@
 export default function Hero() {
   return (
     <section className="min-h-screen relative flex items-center pt-24 pb-20 overflow-hidden">
-      {/* Background */}
+      {/* Background — légèrement flouté et assombri */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80)' }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80)',
+          filter: 'blur(3px) brightness(0.45)',
+        }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-black/88 via-black/70 to-black/40" />
+      <div className="absolute inset-0 bg-black/55" />
       <div className="absolute bottom-0 left-0 w-2/5 h-1 bg-gradient-to-r from-dss-green to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -37,7 +40,7 @@ export default function Hero() {
             & Santé
           </h1>
 
-          <p className="text-lg text-white/72 leading-[1.8] mb-10 max-w-lg">
+          <p className="text-lg text-white leading-[1.8] mb-10 max-w-lg">
             Améliorer le bien-être des populations vulnérables à travers la santé,
             le développement durable et la lutte contre le changement climatique.
           </p>

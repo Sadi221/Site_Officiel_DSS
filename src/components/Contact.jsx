@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // Créer un compte sur formspree.io et remplacer par votre Form ID
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbdwpvjv'
 
 const contactItems = [
   { icon: '📧', label: 'Email',       value: 'contact@dss-france.org' },

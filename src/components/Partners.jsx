@@ -1,16 +1,19 @@
+import { motion } from 'framer-motion'
+import { fadeInUp, scaleIn, stagger, viewport } from '../utils/animations'
+
 const partners = [
   {
     name: 'Hôpital Fann',
     location: 'Dakar, Sénégal',
     type: 'Partenaire médical',
-    desc: 'Centre hospitalier universitaire de référence nationale, pionnier dans l\'accueil et le traitement des patients vulnérables.',
+    desc: "Centre hospitalier universitaire de référence nationale, pionnier dans l'accueil et le traitement des patients vulnérables.",
     icon: '🏥',
   },
   {
     name: 'Dalal Jamm',
     location: 'Dakar, Sénégal',
     type: 'Partenaire médical',
-    desc: 'Établissement de santé engagé dans l\'accès aux soins pour tous, partenaire clé de l\'initiative Jappoo Faju.',
+    desc: "Établissement de santé engagé dans l'accès aux soins pour tous, partenaire clé de l'initiative Jappoo Faju.",
     icon: '🏨',
   },
 ]
@@ -20,22 +23,39 @@ export default function Partners() {
     <section id="partenaires" className="py-14 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-6">
 
-        <div className="text-center mb-16">
-          <span className="inline-block bg-dss-light text-dss-green px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+        <motion.div
+          className="text-center mb-16"
+          variants={stagger(0.12)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.span variants={fadeInUp} className="inline-block bg-dss-light text-dss-green px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
             Nos partenaires
-          </span>
-          <h2 className="text-dss-navy mb-4" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
+          </motion.span>
+          <motion.h2 variants={fadeInUp} className="text-dss-navy mb-4" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
             Des hôpitaux de confiance<br />à nos côtés
-          </h2>
-          <p className="text-lg text-dss-gray max-w-xl mx-auto leading-[1.8]">
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-lg text-dss-gray max-w-xl mx-auto leading-[1.8]">
             Nos hôpitaux partenaires sont rigoureusement sélectionnés pour garantir
             la qualité et la traçabilité de chaque intervention financée.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <motion.div
+          className="grid md:grid-cols-2 gap-6 mb-12"
+          variants={stagger(0.15)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           {partners.map(p => (
-            <div key={p.name} className="bg-dss-light rounded-2xl p-8 border border-dss-green/15">
+            <motion.div
+              key={p.name}
+              variants={fadeInUp}
+              whileHover={{ y: -4, transition: { duration: 0.22 } }}
+              className="bg-dss-light rounded-2xl p-8 border border-dss-green/15"
+            >
               <div className="flex items-start gap-5">
                 <div className="w-14 h-14 bg-dss-green rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
                   {p.icon}
@@ -47,23 +67,33 @@ export default function Partners() {
                   <p className="text-sm text-slate-600 leading-[1.8]">{p.desc}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
-        <div className="bg-dss-green rounded-3xl p-10 md:p-14 text-center">
+        <motion.div
+          className="bg-dss-green rounded-3xl p-10 md:p-14 text-center"
+          variants={scaleIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <h3 className="font-serif text-2xl font-bold text-white mb-3">
             Vous êtes un établissement de santé ?
           </h3>
           <p className="text-white/70 mb-8 max-w-lg mx-auto leading-[1.8]">
             Rejoignez le réseau DSS et permettez à vos patients d'accéder aux dons de solidarité médicale.
           </p>
-          <a href="#contact"
-            className="inline-block bg-white text-dss-green px-8 py-3.5 rounded-xl font-bold text-sm hover:shadow-xl transition-shadow">
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-block bg-white text-dss-green px-8 py-3.5 rounded-xl font-bold text-sm hover:shadow-xl transition-shadow"
+          >
             Devenir partenaire →
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   )

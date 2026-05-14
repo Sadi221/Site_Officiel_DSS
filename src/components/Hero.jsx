@@ -1,24 +1,35 @@
-import DonationWidget from './DonationWidget'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
+import { fadeInUp, stagger, viewport } from '../utils/animations'
 
 export default function Hero() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+
   return (
-    <section className="min-h-screen relative flex items-center pt-24 pb-20 overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+    <section ref={ref} className="min-h-screen relative flex items-center pt-24 pb-20 overflow-hidden">
+      {/* Parallax background */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80)',
-          filter: 'brightness(0.55)',
+          backgroundImage: 'url(/images/hero.jpeg)',
+          filter: 'brightness(0.48)',
+          y: bgY,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/55 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/25" />
       <div className="absolute bottom-0 left-0 w-2/5 h-1 bg-gradient-to-r from-dss-green to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
-        <div className="max-w-2xl">
-
+        <motion.div
+          className="max-w-2xl"
+          variants={stagger(0.12, 0.1)}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Logo + name */}
-          <div className="flex items-center gap-4 mb-10">
+          <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-10">
             <img src="/Logo_DSS.png" alt="DSS" className="w-16 h-16 object-contain" />
             <div>
               <div className="text-sm font-extrabold text-white tracking-widest uppercase">
@@ -26,52 +37,52 @@ export default function Hero() {
               </div>
               <div className="text-[11px] text-white/45 tracking-[3px] mt-1 uppercase">DSS — Paris, France</div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-dss-green/35 backdrop-blur-sm border border-green-300/30 rounded-full px-4 py-2 mb-7">
+          <motion.div variants={fadeInUp}
+            className="inline-flex items-center gap-2 bg-dss-green/35 backdrop-blur-sm border border-green-300/30 rounded-full px-4 py-2 mb-7">
             <span className="text-sm">🌍</span>
             <span className="text-[#A8E6C3] text-xs font-bold tracking-widest uppercase">
               ONG française · Sénégal & Afrique
             </span>
-          </div>
+          </motion.div>
 
-          <h1 className="font-serif font-black text-white mb-6 leading-[1.05]" style={{ fontSize: 'clamp(38px,6vw,72px)' }}>
+          <motion.h1
+            variants={fadeInUp}
+            className="font-serif font-black text-white mb-6 leading-[1.05]"
+            style={{ fontSize: 'clamp(38px,6vw,72px)' }}
+          >
             Développement<br />
             <span className="text-[#A8E6C3]">Solidaire</span><br />
             & Santé
-          </h1>
+          </motion.h1>
 
-          <p className="text-lg text-white leading-[1.8] mb-8 max-w-lg">
+          <motion.p variants={fadeInUp} className="text-lg text-white leading-[1.8] mb-8 max-w-lg">
             Améliorer le bien-être des populations vulnérables à travers la santé,
             le développement durable et la lutte contre le changement climatique.
-          </p>
+          </motion.p>
 
-          <a href="#mission"
-            className="inline-block bg-white text-dss-green px-8 py-3.5 rounded-xl text-sm font-extrabold shadow-xl hover:shadow-2xl transition-shadow mb-10">
-            Découvrir notre mission
-          </a>
+          <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-12">
+            <motion.a
+              href="#mission"
+              className="inline-block bg-white text-dss-green px-8 py-3.5 rounded-xl text-sm font-extrabold shadow-xl hover:shadow-2xl transition-shadow"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Découvrir notre mission
+            </motion.a>
+            <motion.a
+              href="#don"
+              className="inline-block bg-dss-green/80 backdrop-blur-sm border border-dss-green text-white px-8 py-3.5 rounded-xl text-sm font-bold hover:bg-dss-green transition-colors"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Faire un don →
+            </motion.a>
+          </motion.div>
 
-          {/* Donation widget */}
-          <div className="border-t border-white/15 pt-8">
-            <p className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">Faire un don à DSS</p>
-            <DonationWidget dark />
-          </div>
-
-          {/* Stats */}
-          <div className="flex flex-wrap gap-10 mt-10 pt-8 border-t border-white/10">
-            {[
-              { value: '2019', label: 'Fondée à Paris' },
-              { value: '2',    label: 'Hôpitaux partenaires' },
-              { value: '3',    label: 'Piliers d\'action' },
-            ].map(s => (
-              <div key={s.label}>
-                <div className="text-3xl font-black text-[#A8E6C3] font-serif">{s.value}</div>
-                <div className="text-xs text-white/50 mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
